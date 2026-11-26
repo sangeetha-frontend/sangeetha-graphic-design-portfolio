@@ -9,6 +9,7 @@
       --bg: #0b0d12;
       --surface: #131722;
       --surface-2: #1a2030;
+      --img-bg: #0d111a;
       --text: #f4f6fb;
       --muted: #a3adc2;
       --accent: #7c5cff;
@@ -16,7 +17,8 @@
       --border: rgba(255, 255, 255, 0.09);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: Inter, system-ui, -apple-system, sans-serif;
       background: var(--bg);
@@ -29,7 +31,7 @@
     header {
       position: sticky; top: 0; z-index: 10;
       backdrop-filter: blur(12px);
-      background: rgba(11, 13, 18, 0.8);
+      background: rgba(11, 13, 18, 0.85);
       border-bottom: 1px solid var(--border);
     }
     .nav {
@@ -45,6 +47,7 @@
     .btn {
       display: inline-block; padding: 12px 22px; border-radius: 10px;
       text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.2s;
+      border: none; cursor: pointer;
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -83,16 +86,35 @@
       transform: translateY(-4px);
       border-color: rgba(124, 92, 255, 0.4);
     }
+
+    /* Cut avvakunda full image fit */
     .card-img-wrapper {
-      width: 100%; height: 220px; overflow: hidden; background: var(--surface-2);
+      width: 100%;
+      height: 260px;
+      background: var(--img-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      overflow: hidden;
+      cursor: zoom-in;
     }
     .card-img-wrapper img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.3s ease;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+      border-radius: 6px;
+      transition: transform 0.25s ease;
     }
     .card:hover .card-img-wrapper img {
-      transform: scale(1.04);
+      transform: scale(1.03);
     }
+
     .card-content {
       padding: 22px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1;
     }
@@ -103,6 +125,48 @@
     }
     .card h3 { font-size: 1.2rem; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: 0.95rem; }
+
+    /* Fullscreen Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(5, 7, 11, 0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 12px;
+      background: var(--img-bg);
+    }
+    .lightbox-caption {
+      margin-top: 12px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -42px;
+      right: 0;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
 
     .contact-box {
       background: linear-gradient(135deg, rgba(124, 92, 255, 0.16), rgba(34, 211, 238, 0.12));
@@ -168,7 +232,7 @@
         </div>
         <div class="grid-3">
           <article class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-wrapper" onclick="openLightbox('images/typography-poster.png', 'Typography Poster')">
               <img src="images/typography-poster.png" alt="Typography Poster Design" />
             </div>
             <div class="card-content">
@@ -181,7 +245,7 @@
           </article>
 
           <article class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-wrapper" onclick="openLightbox('images/novara-logo.png', 'NOVARA Logo Design')">
               <img src="images/novara-logo.png" alt="NOVARA Logo Design" />
             </div>
             <div class="card-content">
@@ -194,7 +258,7 @@
           </article>
 
           <article class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-wrapper" onclick="openLightbox('images/mellow-brand.png', 'MELLOW Brand Identity')">
               <img src="images/mellow-brand.png" alt="MELLOW Brand Identity" />
             </div>
             <div class="card-content">
@@ -207,7 +271,7 @@
           </article>
 
           <article class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-wrapper" onclick="openLightbox('images/bloom-social.png', 'BLOOM Social Media Design')">
               <img src="images/bloom-social.png" alt="BLOOM Social Media Design" />
             </div>
             <div class="card-content">
@@ -220,7 +284,7 @@
           </article>
 
           <article class="card">
-            <div class="card-img-wrapper">
+            <div class="card-img-wrapper" onclick="openLightbox('images/advertising-design.png', 'Advertising Campaign Design')">
               <img src="images/advertising-design.png" alt="Advertising Campaign Design" />
             </div>
             <div class="card-content">
@@ -246,8 +310,30 @@
     </section>
   </main>
 
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()">Close ✕</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
   <footer>
     <div class="container">© 2026 Sangeetha. Designed with creativity.</div>
   </footer>
+
+  <script>
+    function openLightbox(src, title) {
+      document.getElementById("lightbox-img").src = src;
+      document.getElementById("lightbox-caption").textContent = title;
+      document.getElementById("lightbox").classList.add("open");
+    }
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("open");
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeLightbox();
+    });
+  </script>
 </body>
 </html>
