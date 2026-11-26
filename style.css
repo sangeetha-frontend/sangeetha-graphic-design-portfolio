@@ -436,3 +436,35 @@ footer {
 .project-card:hover .project-visual img {
   transform: scale(1.04);
 }
+
+/* Fix portfolio images - show complete designs */
+
+.project img,
+.work img,
+.portfolio-item img,
+img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+/* Keep project image area clean */
+.project,
+.work,
+.portfolio-item {
+    overflow: visible;
+}
+
+/* Responsive images */
+@media (max-width: 768px) {
+    .project img,
+    .work img,
+    .portfolio-item img,
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+}
