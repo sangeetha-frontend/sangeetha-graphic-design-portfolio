@@ -27,6 +27,8 @@ a {
   color: inherit;
 }
 
+/* NAVIGATION */
+
 .navbar {
   min-height: 82px;
   padding: 0 7%;
@@ -74,6 +76,8 @@ a {
   font-size: 25px;
   cursor: pointer;
 }
+
+/* HERO SECTION */
 
 .hero {
   background: var(--black);
@@ -148,9 +152,13 @@ h2 em {
   transform: translateY(-3px);
 }
 
+/* COMMON SECTIONS */
+
 .section {
   padding: 110px 7%;
 }
+
+/* ABOUT SECTION */
 
 .about {
   display: grid;
@@ -188,6 +196,8 @@ h2 em {
   font-size: 12px;
 }
 
+/* WORK SECTION */
+
 .work {
   background: #eee8df;
 }
@@ -211,20 +221,36 @@ h2 em {
   gap: 50px 25px;
 }
 
+/* PROJECT IMAGE CONTAINER */
+
 .project-visual {
-  min-height: 350px;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  display: block;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: 0.3s;
 }
 
 .project-visual:hover {
   transform: translateY(-5px);
 }
+
+/* ALL PROJECT IMAGES */
+
+.project-visual img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 auto;
+}
+
+/* PROJECT TEXT */
 
 .project-visual > span {
   font-size: 12px;
@@ -285,6 +311,8 @@ h2 em {
   text-align: center;
 }
 
+/* PROJECT INFORMATION */
+
 .project-info {
   display: flex;
   align-items: center;
@@ -306,6 +334,8 @@ h2 em {
   font-size: 22px;
 }
 
+/* CONTACT SECTION */
+
 .contact {
   background: var(--black);
   color: var(--cream);
@@ -321,6 +351,8 @@ h2 em {
   line-height: 1.7;
 }
 
+/* FOOTER */
+
 footer {
   padding: 30px 7%;
   display: flex;
@@ -331,7 +363,10 @@ footer {
   color: #77707a;
 }
 
+/* TABLET AND MOBILE */
+
 @media (max-width: 768px) {
+
   .navbar {
     min-height: 70px;
     padding: 0 6%;
@@ -400,7 +435,16 @@ footer {
   }
 
   .project-visual {
-    min-height: 320px;
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .project-visual img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 
   footer {
@@ -409,77 +453,16 @@ footer {
   }
 }
 
+/* SMALL MOBILE SCREENS */
+
 @media (max-width: 380px) {
+
   .hero-top,
   .hero-bottom {
     flex-direction: column;
   }
 
   .project-visual {
-    min-height: 270px;
+    min-height: 0;
   }
-}
-
-.project-visual {
-  overflow: hidden;
-  width: 100%;
-}
-
-.project-visual img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.project-card:hover .project-visual img {
-  transform: scale(1.04);
-}
-
-/* Fix portfolio images - show complete designs */
-
-.project img,
-.work img,
-.portfolio-item img,
-img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-}
-
-/* Keep project image area clean */
-.project,
-.work,
-.portfolio-item {
-    overflow: visible;
-}
-
-/* Responsive images */
-@media (max-width: 768px) {
-    .project img,
-    .work img,
-    .portfolio-item img,
-    img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-    }
-}
-
-/* Fix left and right cropping for selected images */
-
-img[src*="mellow-brand"],
-img[src*="bloom-social"],
-img[src*="advertising-design"] {
-    width: 100%;
-    max-width: 100%;
-    height: auto !important;
-    object-fit: contain !important;
-    object-position: center center !important;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
