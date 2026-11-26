@@ -468,3 +468,18 @@ img {
         object-fit: contain;
     }
 }
+
+/* Fix left and right cropping for selected images */
+
+img[src*="mellow-brand"],
+img[src*="bloom-social"],
+img[src*="advertising-design"] {
+    width: 100%;
+    max-width: 100%;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
